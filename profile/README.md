@@ -1,164 +1,159 @@
 # The-Umbrella-Project
+
 ## Official GitHub
+
 <img align="right" width="100" height="100" alt="umbrella-logo-clean-removebg-preview" src="https://github.com/user-attachments/assets/ea20be3a-9e4f-4322-be9f-7671ed063ae3" />
 
-
-
 https://github.com/user-attachments/assets/4e026476-d13c-48b1-8e27-3bbbfdf65598
+
 # The Use of Evapotranspiration Algorithm in Umbrella Project and the Penman-Monteith Equation
 
-[![Research Paper](https://img.shields.io/badge/Research-Paper-blue)](https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-umbrella-project-and-the-penman-monteith-equation/)
-[![Author](https://img.shields.io/badge/Author-Neksha%20DeSilva-green)](https://nekshadesilva.com)
-[![Date](https://img.shields.io/badge/Date-August%202025-orange)](https://nekshadesilva.com)
+[Research Paper](https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-umbrella-project-and-the-penman-monteith-equation/)  
+[Author: Neksha DeSilva](https://nekshadesilva.com)  
+[Date: August 2025](https://nekshadesilva.com)
 
 ## Abstract
 
-Traditional irrigation systems operate on a reactive principle - they respond to soil moisture deficits after plants have already begun experiencing stress. The **Umbrella Project** introduces a fundamentally different approach: **predictive environmental intelligence**. By implementing the Penman-Monteith evapotranspiration (ET) equation, the system anticipates water requirements before stress occurs, delivering precisely the amount of water that will evaporate and transpire within the next operational cycle.
+Traditional irrigation systems often wait until plants show signs of water stress before responding. The Umbrella Project takes a different approach by using predictive intelligence to anticipate water needs in advance. At the heart of this project is the Penman-Monteith evapotranspiration (ET) equation, which enables the system to deliver exactly the right amount of water based on the forecasted evaporation and transpiration in the next cycle.
 
-This research explores the theoretical foundations, engineering challenges, and practical implementations that enable autonomous irrigation through environmental parameter sensing and algorithmic prediction.
+This work presents the theoretical background, engineering decisions, and practical solutions that make autonomous irrigation possible through real-time environmental sensing and algorithmic prediction.
 
 ---
 
-## 🔬 Mathematical Derivation of the Simplified Penman-Monteith Equation
+## Mathematical Derivation of the Simplified Penman-Monteith Equation
 
-The core innovation of the Umbrella Project lies in the mathematical simplification of the FAO-56 Penman-Monteith equation to enable low-cost implementation without sacrificing scientific rigor.
+The main innovation in the Umbrella Project is the simplification of the FAO-56 Penman-Monteith equation, making it accessible and affordable while maintaining scientific accuracy.
 
 ### 1. Starting Point: The Full FAO-56 Penman-Monteith Equation
 
 ```latex
-ET_0 = \frac{0.408 \Delta (R_n - G) + \gamma \frac{900}{T + 273} u_2 (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_2)} \quad \cdots (1)
-```
-
-**LaTeX notation:**
-```
 ET_0 = \frac{0.408 \Delta (R_n - G) + \gamma \frac{900}{T + 273} u_2 (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_2)}
 ```
 
-This equation relies on several real-time measured variables:
+This equation depends on several measured variables:
 - **R_n**: Net Radiation
 - **G**: Soil Heat Flux
 - **T**: Temperature
 - **u_2**: Wind Speed at 2m height
-- **e_s, e_a**: Saturation and actual vapor pressures (derived from temperature and humidity)
+- **e_s, e_a**: Saturation and actual vapor pressures (from humidity and temperature)
 
 ---
 
-### 2. Step 1: Assumption of Negligible Daily Soil Heat Flux (G)
+### 2. Step 1: Negligible Daily Soil Heat Flux (G)
 
-For 24-hour calculations, net soil heat flux is minimal (energy absorbed during day ≈ energy released at night).
+For daily calculations, soil heat flux is minimal because the energy absorbed during the day is almost equal to what is released at night.
 
 **Simplification:**
 ```latex
 G \approx 0
 ```
 
-**Simplified equation:**
+So the equation becomes:
 ```latex
-ET_0 = \frac{0.408 \Delta R_n + \gamma \frac{900}{T + 273} u_2 (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_2)} \quad \cdots (2)
+ET_0 = \frac{0.408 \Delta R_n + \gamma \frac{900}{T + 273} u_2 (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_2)}
 ```
 
 ---
 
-### 3. Step 2: Parameterization of Wind Speed (u₂)
+### 3. Step 2: Wind Speed as a Constant
 
-To eliminate expensive anemometers, wind speed is replaced with a historical average constant.
+To avoid the cost of anemometers, wind speed is set as a historical average constant.
 
 **Substitution:**
 ```latex
 u_2 \rightarrow u_{2,const} = 1.39 \text{ m/s}
 ```
 
-**Code implementation:**
+**Code:**
 ```cpp
 const float windSpeed = 1.39;  // m/s
 ```
 
-**Resulting equation:**
+Resulting in:
 ```latex
-ET_0 = \frac{0.408 \Delta R_n + \gamma \frac{900}{T + 273} u_{2,const} (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_{2,const})} \quad \cdots (3)
+ET_0 = \frac{0.408 \Delta R_n + \gamma \frac{900}{T + 273} u_{2,const} (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_{2,const})}
 ```
 
 ---
 
-### 4. Step 3: Derivation of Net Radiation from Solar Voltage
+### 4. Step 3: Net Radiation from Solar Voltage
 
-Net radiation (R_n) is estimated from solar panel voltage instead of using expensive pyranometers.
+Net radiation is estimated using the voltage from a solar panel, removing the need for expensive pyranometers.
 
 **Substitution:**
 ```latex
 R_n \rightarrow f(V_{solar})
 ```
 
-**Code implementation:**
+**Code:**
 ```cpp
 float getRn(float solarVoltage) {
-    // Calibrated function mapping voltage to radiation
     return calibratedRadiationEstimate(solarVoltage);
 }
 ```
 
-**Resulting equation:**
+So:
 ```latex
-ET_0 = \frac{0.408 \Delta f(V_{solar}) + \gamma \frac{900}{T + 273} u_{2,const} (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_{2,const})} \quad \cdots (4)
+ET_0 = \frac{0.408 \Delta f(V_{solar}) + \gamma \frac{900}{T + 273} u_{2,const} (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_{2,const})}
 ```
 
 ---
 
-### 5. Step 4: Parameterization of the Psychrometric Constant (γ)
+### 5. Step 4: Psychrometric Constant as a Pre-Calculated Value
 
-The psychrometric constant depends on atmospheric pressure (altitude-dependent). Pre-calculated constant eliminates need for barometer.
+The psychrometric constant depends on pressure, which is altitude-dependent. Using a pre-calculated constant eliminates the need for a barometer.
 
 **Substitution:**
 ```latex
 \gamma \rightarrow \gamma_{const}
 ```
 
-**Code implementation:**
+**Code:**
 ```cpp
 const float gamma = 0.000665 * pressure;  // kPa/°C
 ```
 
-**Final simplified equation:**
+**Final equation:**
 ```latex
-ET_0 = \frac{0.408 \Delta f(V_{solar}) + \gamma_{const} \frac{900}{T + 273} u_{2,const} (e_s - e_a)}{\Delta + \gamma_{const}(1 + 0.34 u_{2,const})} \quad \cdots (5)
+ET_0 = \frac{0.408 \Delta f(V_{solar}) + \gamma_{const} \frac{900}{T + 273} u_{2,const} (e_s - e_a)}{\Delta + \gamma_{const}(1 + 0.34 u_{2,const})}
 ```
 
 ---
 
 ### 6. Conclusion of Derivation
 
-**Equation (5)** represents the final form implemented in the Umbrella Project:
+The final equation (above) is used in the Umbrella Project:
 
-| Component | Source |
-|-----------|--------|
-| **T, e_s, e_a, Δ** | Live sensor readings (DHT22/BME280) |
-| **G** | Constant = 0 (daily approximation) |
-| **u_2** | Constant = u_{2,const} (historical average) |
-| **γ** | Constant = γ_{const} (altitude-based) |
-| **R_n** | Virtual sensor = f(V_{solar}) (solar panel + TEG) |
+| Component           | Source                             |
+|---------------------|------------------------------------|
+| T, e_s, e_a, Δ      | Real-time sensors (DHT22/BME280)   |
+| G                   | Set to 0 (daily average)           |
+| u_2                 | Constant from historical data      |
+| γ                   | Pre-calculated constant            |
+| R_n                 | Estimated using solar panel voltage|
 
-**Key Achievement:** ~95% hardware cost reduction while maintaining ±15% ET prediction accuracy.
-
----
-
-## 🌱 Key Features
-
-- **Predictive Irrigation**: Anticipates water needs before plant stress occurs
-- **Low-Cost Implementation**: Sub-$50 system using simplified sensor architecture
-- **Virtual Radiation Sensor**: Solar panel + TEG replaces expensive pyranometer
-- **Environmental Intelligence**: Real-time adaptation to atmospheric conditions
-- **Water Efficiency**: 30-40% water savings vs. traditional timer-based systems
+**Result:** About 95% reduction in hardware costs, with ±15% accuracy in ET prediction.
 
 ---
 
-## 🔧 Technical Specifications
+## Key Features
 
-### Hardware Components
-- **Temperature/Humidity Sensor**: DHT22 or BME280
-- **Pressure Sensor**: BME280 (integrated)
-- **Virtual Radiation Sensor**: Solar panel output + Thermoelectric Generator (TEG)
-- **Microcontroller**: Low-power embedded system
-- **Power**: Solar-powered with battery backup
+- Predictive irrigation: anticipates water needs before stress
+- Affordable: total cost under $50 using simple sensors
+- Virtual radiation sensor: solar panel + TEG replaces expensive equipment
+- Real-time environmental intelligence
+- Water savings: 30-40% compared to timer-based systems
+
+---
+
+## Technical Specifications
+
+### Hardware
+- Temperature/Humidity Sensor: DHT22 or BME280
+- Pressure Sensor: BME280
+- Virtual Radiation Sensor: Solar panel + Thermoelectric Generator (TEG)
+- Microcontroller: Low-power, embedded
+- Power: Solar-powered with battery backup
 
 ### Sensor Accuracy
 - Temperature: ±0.5°C
@@ -169,15 +164,15 @@ ET_0 = \frac{0.408 \Delta f(V_{solar}) + \gamma_{const} \frac{900}{T + 273} u_{2
 ### System Performance
 - ET Prediction Accuracy: ±10-15%
 - Irrigation Precision: Milliliter-level
-- Water Savings: 30-40% vs. traditional systems
-- Power Consumption: Solar-sustainable
+- Water Savings: 30-40%
+- Power Consumption: Runs sustainably on solar
 
 ---
 
-## 📊 System Variants
+## System Variants
 
 ### GI Variant (First Generation)
-- Proof-of-concept system
+- Proof-of-concept
 - DHT22 sensors
 - Basic ET calculation
 - Single-zone irrigation
@@ -192,9 +187,9 @@ ET_0 = \frac{0.408 \Delta f(V_{solar}) + \gamma_{const} \frac{900}{T + 273} u_{2
 
 ---
 
-## 📖 Citation
+## Citation
 
-If you use this research or implementation in your work, please cite:
+If you use this research, please cite:
 
 ```bibtex
 @article{desilva2025umbrella,
@@ -220,15 +215,15 @@ N. DeSilva, "The Use of Evapotranspiration Algorithm in Umbrella Project and the
 
 ---
 
-## 🔗 Resources
+## Resources
 
-- **Full Research Paper**: [nekshadesilva.com/docs/...](https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-umbrella-project-and-the-penman-monteith-equation/)
-- **Presentation PDF**: [Precision Under Constraint](https://nekshadesilva.com/assets/pdf/Precision-Under-Constraint.pdf)
-- **Author Website**: [nekshadesilva.com](https://nekshadesilva.com)
+- [Full Research Paper](https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-umbrella-project-and-the-penman-monteith-equation/)
+- [Presentation PDF](https://nekshadesilva.com/assets/pdf/Precision-Under-Constraint.pdf)
+- [Author Website](https://nekshadesilva.com)
 
 ---
 
-## 📚 References
+## References
 
 1. Allen, R. G., Pereira, L. S., Raes, D., & Smith, M. (1998). *Crop evapotranspiration - Guidelines for computing crop water requirements*. FAO Irrigation and drainage paper 56. Food and Agriculture Organization of the United Nations, Rome.
 
@@ -238,38 +233,46 @@ N. DeSilva, "The Use of Evapotranspiration Algorithm in Umbrella Project and the
 
 ---
 
-## 📄 License
+## License
 
-This research documentation is available for academic and educational purposes. For commercial applications, please contact the author.
-
----
-
-## 👤 Author
-
-**Neksha DeSilva**
-- Website: [nekshadesilva.com](https://nekshadesilva.com)
-- Research Focus: Environmental Engineering, Autonomous Systems, Agricultural Technology
+This documentation is provided for academic and educational use. For commercial applications, please contact the author.
 
 ---
 
-## 🌟 Acknowledgments
+## Author
 
-This research represents a bridge between theoretical environmental science and practical agricultural automation, demonstrating that scientific precision can be democratized through creative engineering and mathematical rigor.
+**Neksha DeSilva**  
+Website: [nekshadesilva.com](https://nekshadesilva.com)  
+Research Focus: Environmental Engineering, Autonomous Systems, Agricultural Technology
 
 ---
 
-*For the complete research paper with detailed explanations, technical diagrams, and comprehensive analysis, visit the [full documentation](https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-umbrella-project-and-the-penman-monteith-equation/).*
+## Acknowledgments
 
-## overview
-The Umbrella Project is a vision for sustainable living, scientific discovery, and autonomous technology. Built as a 10 cm module, it transforms rainfall, humidity, temperature, and evapotranspiration into over 100 distinct input parameters. From these, it can derive more than one million real data points, enabling scientists, farmers, and innovators to test algorithms, validate research, and explore the relationship between environment and life.
+This research bridges theoretical environmental science with practical agricultural automation, showing that precision and accessibility are possible through thoughtful engineering and mathematical rigor.
 
-Version 1.0 is just the beginning. Designed for interoperability, it works across platforms including iOS, Windows, web applications, and services such as IFTTT. Its communication range extends up to five kilometers, allowing remote connectivity and collaboration in fields ranging from agriculture and biology to climate science and geography.
+---
 
-## imagine
-Imagine a system that not only irrigates plants but also delivers nutrients through integrated liquid fertilizer control. Imagine a self-sustaining device that can operate for ten years without intervention, collecting, processing, and sharing data across scientific networks. Imagine a living organism, a plant, a fungus, even an experimental biological model, thriving under its protection in extreme weather when no water remains elsewhere.
+*For the full research paper with detailed analysis and technical diagrams, visit the [documentation](https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-umbrella-project-and-the-penman-monteith-equation/).*
 
-The Umbrella Project embodies resilience and innovation. It is not just a tool but a companion for researchers, a safeguard for life, and a new foundation for sustainable ecosystems.
+---
 
-#### We know that you have questions, especially regarding how we produce liquid fertilizer in this disk. We encourage you to follow the links below for the answers you need!
+## Overview
 
-Email to: nekshavs@gmail.com
+The Umbrella Project is designed for sustainable living, scientific investigation, and autonomous technology. As a compact 10 cm module, it converts rainfall, humidity, temperature, and evapotranspiration into over 100 unique input parameters. With these, the system can generate more than a million real data points, supporting researchers, farmers, and innovators in testing algorithms, validating findings, and exploring the interactions between environment and life.
+
+Version 1.0 marks the beginning. The system is built for interoperability and works across iOS, Windows, web applications, and services like IFTTT. Its communication range extends up to five kilometers, enabling remote connectivity and collaboration in fields such as agriculture, biology, climate science, and geography.
+
+---
+
+## Imagine
+
+Imagine a system that not only irrigates plants but also dispenses nutrients through integrated liquid fertilizer control. Imagine a device that operates for a decade without needing intervention, collecting, processing, and sharing data across scientific networks. Picture a living organism—a plant, a fungus, or an experimental biological model—thriving under its protection even in extreme weather, when water elsewhere is scarce.
+
+The Umbrella Project stands for resilience and innovation. It is more than a tool; it is a companion for researchers, a safeguard for living systems, and a foundation for sustainable ecosystems.
+
+---
+
+If you have questions, including about how liquid fertilizer is produced inside the module, please reach out via email.
+
+Email: nekshavs@gmail.com
