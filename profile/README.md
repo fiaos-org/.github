@@ -1,4 +1,4 @@
-# The-Umbrella-Project
+# FiaOS ETSci+
 
 ## Official GitHub
 
@@ -6,7 +6,7 @@
 
 https://github.com/user-attachments/assets/4e026476-d13c-48b1-8e27-3bbbfdf65598
 
-# The Use of Evapotranspiration Algorithm in Umbrella Project and the Penman-Monteith Equation
+# The Use of Evapotranspiration Algorithm in FiaOS and the Penman-Monteith Equation
 
 [Research Paper](https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-umbrella-project-and-the-penman-monteith-equation/)  
 [Author: Neksha DeSilva](https://nekshadesilva.com)  
@@ -192,25 +192,25 @@ The final equation (above) is used in the Umbrella Project:
 If you use this research, please cite:
 
 ```bibtex
-@article{desilva2025umbrella,
-  title={The Use of Evapotranspiration Algorithm in Umbrella Project and the Penman-Monteith Equation},
+@article{desilva2025fiaos,
+  title={The Use of Evapotranspiration Algorithm in FiaOS and the Penman-Monteith Equation},
   author={DeSilva, Neksha},
   journal={Research Documentation},
   year={2025},
   month={August},
-  url={https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-umbrella-project-and-the-penman-monteith-equation/},
+  url={https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-fiaos-project-and-the-penman-monteith-equation/},
   note={A comprehensive exploration of environmental intelligence, predictive irrigation, and the engineering challenges of implementing the Penman-Monteith equation in autonomous systems}
 }
 ```
 
 **APA Format:**
 ```
-DeSilva, N. (2025, August). The Use of Evapotranspiration Algorithm in Umbrella Project and the Penman-Monteith Equation. Retrieved from https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-umbrella-project-and-the-penman-monteith-equation/
+DeSilva, N. (2025, August). The Use of Evapotranspiration Algorithm in fiaos Project and the Penman-Monteith Equation. Retrieved from https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-fiaos-project-and-the-penman-monteith-equation/
 ```
 
 **IEEE Format:**
 ```
-N. DeSilva, "The Use of Evapotranspiration Algorithm in Umbrella Project and the Penman-Monteith Equation," Aug. 2025. [Online]. Available: https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-umbrella-project-and-the-penman-monteith-equation/
+N. DeSilva, "The Use of Evapotranspiration Algorithm in fiaos Project and the Penman-Monteith Equation," Aug. 2025. [Online]. Available: https://nekshadesilva.com/docs/the-use-of-evapotranspiration-algorithm-in-fiaos-project-and-the-penman-monteith-equation/
 ```
 
 ---
@@ -269,7 +269,7 @@ Version 1.0 marks the beginning. The system is built for interoperability and wo
 
 Imagine a system that not only irrigates plants but also dispenses nutrients through integrated liquid fertilizer control. Imagine a device that operates for a decade without needing intervention, collecting, processing, and sharing data across scientific networks. Picture a living organism—a plant, a fungus, or an experimental biological model—thriving under its protection even in extreme weather, when water elsewhere is scarce.
 
-The Umbrella Project stands for resilience and innovation. It is more than a tool; it is a companion for researchers, a safeguard for living systems, and a foundation for sustainable ecosystems.
+The fiaos Project stands for resilience and innovation. It is more than a tool; it is a companion for researchers, a safeguard for living systems, and a foundation for sustainable ecosystems.
 
 ---
 
