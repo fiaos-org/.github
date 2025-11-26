@@ -26,9 +26,7 @@ The main innovation in the Umbrella Project is the simplification of the FAO-56 
 
 ### 1. Starting Point: The Full FAO-56 Penman-Monteith Equation
 
-```latex
-ET_0 = \frac{0.408 \Delta (R_n - G) + \gamma \frac{900}{T + 273} u_2 (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_2)}
-```
+<img width="852" height="197" alt="image" src="https://github.com/user-attachments/assets/7cf658bb-f38f-4c9a-818e-54d52f5e16ef" />
 
 This equation depends on several measured variables:
 - **R_n**: Net Radiation
@@ -44,14 +42,11 @@ This equation depends on several measured variables:
 For daily calculations, soil heat flux is minimal because the energy absorbed during the day is almost equal to what is released at night.
 
 **Simplification:**
-```latex
-G \approx 0
-```
+<img width="170" height="93" alt="image" src="https://github.com/user-attachments/assets/bb34afff-6e86-496e-a752-6899370cdad4" />
+
 
 So the equation becomes:
-```latex
-ET_0 = \frac{0.408 \Delta R_n + \gamma \frac{900}{T + 273} u_2 (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_2)}
-```
+<img width="559" height="61" alt="image" src="https://github.com/user-attachments/assets/faeb829a-3751-45c7-aaf3-87f2a9edcdfd" />
 
 ---
 
@@ -60,9 +55,8 @@ ET_0 = \frac{0.408 \Delta R_n + \gamma \frac{900}{T + 273} u_2 (e_s - e_a)}{\Del
 To avoid the cost of anemometers, wind speed is set as a historical average constant.
 
 **Substitution:**
-```latex
-u_2 \rightarrow u_{2,const} = 1.39 \text{ m/s}
-```
+<img width="548" height="66" alt="image" src="https://github.com/user-attachments/assets/e4d72d1b-5f48-4e11-bc1f-1d70553d1c7b" />
+
 
 **Code:**
 ```cpp
@@ -70,9 +64,8 @@ const float windSpeed = 1.39;  // m/s
 ```
 
 Resulting in:
-```latex
-ET_0 = \frac{0.408 \Delta R_n + \gamma \frac{900}{T + 273} u_{2,const} (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_{2,const})}
-```
+<img width="922" height="155" alt="image" src="https://github.com/user-attachments/assets/1fb412ee-849d-4d04-ba72-29a0f7a5f59a" />
+
 
 ---
 
@@ -81,9 +74,7 @@ ET_0 = \frac{0.408 \Delta R_n + \gamma \frac{900}{T + 273} u_{2,const} (e_s - e_
 Net radiation is estimated using the voltage from a solar panel, removing the need for expensive pyranometers.
 
 **Substitution:**
-```latex
-R_n \rightarrow f(V_{solar})
-```
+<img width="336" height="92" alt="image" src="https://github.com/user-attachments/assets/86e08fb7-8eee-4687-9e77-faf90a6ac442" />
 
 **Code:**
 ```cpp
@@ -93,9 +84,7 @@ float getRn(float solarVoltage) {
 ```
 
 So:
-```latex
-ET_0 = \frac{0.408 \Delta f(V_{solar}) + \gamma \frac{900}{T + 273} u_{2,const} (e_s - e_a)}{\Delta + \gamma(1 + 0.34 u_{2,const})}
-```
+<img width="1022" height="150" alt="image" src="https://github.com/user-attachments/assets/cc1c9927-a5f0-47a7-aedf-815f62973f56" />
 
 ---
 
@@ -104,9 +93,8 @@ ET_0 = \frac{0.408 \Delta f(V_{solar}) + \gamma \frac{900}{T + 273} u_{2,const} 
 The psychrometric constant depends on pressure, which is altitude-dependent. Using a pre-calculated constant eliminates the need for a barometer.
 
 **Substitution:**
-```latex
-\gamma \rightarrow \gamma_{const}
-```
+<img width="248" height="67" alt="image" src="https://github.com/user-attachments/assets/9e00da02-ff03-4b8b-9587-80ea58e730d5" />
+
 
 **Code:**
 ```cpp
@@ -114,9 +102,7 @@ const float gamma = 0.000665 * pressure;  // kPa/°C
 ```
 
 **Final equation:**
-```latex
-ET_0 = \frac{0.408 \Delta f(V_{solar}) + \gamma_{const} \frac{900}{T + 273} u_{2,const} (e_s - e_a)}{\Delta + \gamma_{const}(1 + 0.34 u_{2,const})}
-```
+<img width="1098" height="150" alt="image" src="https://github.com/user-attachments/assets/897d9456-7c49-4304-9c0e-368ead4bfc62" />
 
 ---
 
