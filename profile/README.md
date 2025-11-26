@@ -6,9 +6,13 @@
 
 ### Important: FiaOS ETSci+ has recently published its first minor release. With a broader OS architecture implemented as a custom library, you can build directly on it.
 
-<img align="right" width="100" height="100" alt="umbrella-logo-clean-removebg-preview" src="https://github.com/user-attachments/assets/ea20be3a-9e4f-4322-be9f-7671ed063ae3" />
-
+# Early research progress
+#
+#
+#
+#   
 https://github.com/user-attachments/assets/4e026476-d13c-48b1-8e27-3bbbfdf65598
+
 
 # The Use of Evapotranspiration Algorithm in FiaOS and the Penman-Monteith Equation
 
