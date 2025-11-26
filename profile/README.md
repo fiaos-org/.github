@@ -1,6 +1,10 @@
+<img width="155"  alt="umbrella-logo-clean" src="https://github.com/user-attachments/assets/b6a0272e-40db-4b03-8d77-5322001feb2b" />
+<img align="right" width="561" height="445" alt="unnamed-removebg-preview" src="https://github.com/user-attachments/assets/ee95a923-690d-4081-b54b-acbb26930c1d" />
+
 # FiaOS ETSci+
 
-## Official GitHub
+
+### Important: FiaOS ETSci+ has recently published its first minor release. With a broader OS architecture implemented as a custom library, you can build directly on it.
 
 <img align="right" width="100" height="100" alt="umbrella-logo-clean-removebg-preview" src="https://github.com/user-attachments/assets/ea20be3a-9e4f-4322-be9f-7671ed063ae3" />
 
