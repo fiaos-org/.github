@@ -1,10 +1,10 @@
 <img width="155"  alt="umbrella-logo-clean" src="https://github.com/user-attachments/assets/b6a0272e-40db-4b03-8d77-5322001feb2b" />
-<img align="right" width="561" height="445" alt="unnamed-removebg-preview" src="https://github.com/user-attachments/assets/ee95a923-690d-4081-b54b-acbb26930c1d" />
+<br>
+<img width="493" height="137" alt="fiaphy-clean" src="https://github.com/user-attachments/assets/e0abd66d-9ae0-4e81-836b-6130819241ad" />
 
-# FiaOS ETSci+
+### FiaPhy Version 1.1 major release published.
 
-
-### Important: FiaOS ETSci+ has recently published its first minor release. With a broader OS architecture implemented as a custom library, you can build directly on it.
+### FiaOS ETSci+ has recently published its first minor release. With a broader OS architecture implemented as a custom library, you can build directly on it.
 
 # Early research progress
 #
@@ -12,7 +12,7 @@
 #
 #   
 https://github.com/user-attachments/assets/4e026476-d13c-48b1-8e27-3bbbfdf65598
-
+<img align="right" width="561" height="445" alt="unnamed-removebg-preview" src="https://github.com/user-attachments/assets/ee95a923-690d-4081-b54b-acbb26930c1d" />
 
 # The Use of Evapotranspiration Algorithm in FiaOS and the Penman-Monteith Equation
 
